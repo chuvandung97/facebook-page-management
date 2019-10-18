@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Body, Res, HttpStatus, Post } from '@nestjs/common';
 import { PagesService } from './pages.service'
 import { Pages } from './pages.entity';
 import { CreatePagesDto } from './pages.dto'
@@ -17,6 +17,12 @@ export class PagesController {
     @Get('post')
     async getPost(@Body() createPagesDto: CreatePagesDto, @Res() res: Response): Promise<any> {
         let response = await this.pagesService.getPost(createPagesDto.page_id, createPagesDto.page_token)
+        res.status(HttpStatus.OK).json({statusCode: HttpStatus.OK, message: 'Success', body: response})
+    }
+
+    @Post('post')
+    async post(@Body() createPagesDto: CreatePagesDto, @Res() res: Response): Promise<any> {
+        let response = await this.pagesService.post(createPagesDto.page_id, createPagesDto.page_token, createPagesDto.message, createPagesDto.link)
         res.status(HttpStatus.OK).json({statusCode: HttpStatus.OK, message: 'Success', body: response})
     }
 

@@ -24,6 +24,20 @@ export class PagesService {
     async getPost(page_id: string, page_token: string): Promise<Pages[]> {
         let url = "https://graph.facebook.com/v4.0/" + page_id + "?fields=posts&access_token=" + page_token
         let response = await this.httpService.get(url).toPromise()
+        if(!response.data.posts) {
+            throw new HttpException(
+                'No post',
+                HttpStatus.OK
+            )
+        }
         return response.data.posts.data
+    }
+
+    async post(page_id: string, page_token: string, message: string, link: string): Promise<Pages[]> {
+        let url = "https://graph.facebook.com/v4.0/" + page_id + "/feed&access_token=" + page_token
+        let response = await this.httpService.post(url, {
+            message: message
+        }).toPromise()
+        return response.data
     }
 }
