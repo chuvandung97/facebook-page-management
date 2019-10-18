@@ -1,4 +1,4 @@
-import { Injectable, HttpService, BadGatewayException, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpService, HttpException, HttpStatus } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Pages } from './pages.entity';
@@ -34,9 +34,10 @@ export class PagesService {
     }
 
     async post(page_id: string, page_token: string, message: string, link: string): Promise<Pages[]> {
-        let url = "https://graph.facebook.com/v4.0/" + page_id + "/feed&access_token=" + page_token
+        let url = "https://graph.facebook.com/v4.0/" + page_id + "/feed?access_token=" + page_token
         let response = await this.httpService.post(url, {
-            message: message
+            message: message,
+            link: link
         }).toPromise()
         return response.data
     }
