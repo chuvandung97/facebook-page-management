@@ -6,8 +6,8 @@ import { Pages } from './pages.entity';
 @Injectable()
 export class PagesService {
     constructor(
-        @InjectRepository(Pages)
-        private pagesRepository: Repository<Pages>,
+        /* @InjectRepository(Pages) */
+        /* private pagesRepository: Repository<Pages>, */
         private httpService: HttpService
     ) { }
 
