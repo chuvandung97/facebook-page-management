@@ -26,4 +26,15 @@ export class PagesController {
         res.status(HttpStatus.OK).json({statusCode: HttpStatus.OK, message: 'Success', body: response})
     }
 
+    @Post('message')
+    async sendMessage(@Body() createPagesDto: CreatePagesDto, @Res() res: Response): Promise<any> {
+        let response = await this.pagesService.sendMessage(createPagesDto.conversation_id, createPagesDto.page_token, createPagesDto.message)
+        res.status(HttpStatus.OK).json({statusCode: HttpStatus.OK, message: 'Success', body: response})
+    }
+
+    @Get('message')
+    async getMessage(@Body() createPagesDto: CreatePagesDto, @Res() res: Response): Promise<any> {
+        let response = await this.pagesService.getMessage(createPagesDto.page_id, createPagesDto.page_token)
+        res.status(HttpStatus.OK).json({statusCode: HttpStatus.OK, message: 'Success', body: response})
+    }
 }

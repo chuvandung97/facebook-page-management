@@ -5,4 +5,5 @@ export class CreatePagesDto {
     readonly page_token: string
     readonly message: string
     readonly link: string
+    readonly conversation_id: string
 }

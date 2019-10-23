@@ -2,10 +2,6 @@ import { Injectable, HttpService, HttpException, HttpStatus } from '@nestjs/comm
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Pages } from './pages.entity';
-import { Observable, throwError } from 'rxjs';
-import { AxiosResponse } from 'axios';
-import { map, catchError } from 'rxjs/operators';
-import { url } from 'inspector';
 
 @Injectable()
 export class PagesService {
@@ -40,5 +36,19 @@ export class PagesService {
             link: link
         }).toPromise()
         return response.data
+    }
+
+    async sendMessage(conversation_id: string, page_token: string, message: string): Promise<Pages[]> {
+        let url = "https://graph.facebook.com/v4.0/" + conversation_id + "/messages?access_token=" + page_token
+        let response = await this.httpService.post(url, {
+            message: message,
+        }).toPromise()
+        return response.data
+    }
+
+    async getMessage(page_id: string, page_token: string): Promise<any> {
+        let url = "https://graph.facebook.com/v4.0/" + page_id + "/conversations?access_token=" + page_token
+        let response = await this.httpService.get(url).toPromise()
+        return response.data.data
     }
 }
