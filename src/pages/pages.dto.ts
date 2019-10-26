@@ -6,5 +6,7 @@ export class CreatePagesDto {
     readonly message: string
     readonly link: string
     readonly conversation_id: string
+    readonly post_id: string
+    readonly comment_id: string
     readonly limit: number
 }

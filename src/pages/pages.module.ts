@@ -6,7 +6,7 @@ import { Pages } from './pages.entity';
 
 @Module({
   imports: [
-    /* TypeOrmModule.forFeature([Pages]), */ HttpModule
+     TypeOrmModule.forFeature([Pages]),  HttpModule
   ],
   providers: [PagesService],
   controllers: [PagesController]

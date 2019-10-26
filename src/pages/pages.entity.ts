@@ -1,25 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
 
 @Entity()
 export class Pages {
     @PrimaryGeneratedColumn()
     id: number;
-
-    @Column()
-    firstName: string;
-
-    @Column()
-    lastName: string;
-
-    @Column()
-    email: string;
-
-    @Column()
-    phone: string;
-
-    @Column()
-    city: string;
-
-    @Column()
-    country: string;
 }

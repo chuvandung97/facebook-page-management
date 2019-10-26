@@ -6,8 +6,8 @@ import { Pages } from './pages.entity';
 @Injectable()
 export class PagesService {
     constructor(
-        /* @InjectRepository(Pages) */
-        /* private pagesRepository: Repository<Pages>, */
+        @InjectRepository(Pages) 
+        private pagesRepository: Repository<Pages>,
         private httpService: HttpService
     ) { }
 
@@ -74,5 +74,35 @@ export class PagesService {
                 )
             })
         return response.data.data
+    }
+
+    async getComment(post_id: string, page_token: string, limit: number = 25): Promise<any> {
+        let url = "https://graph.facebook.com/v4.0/" + post_id + "/comments?limit=" + limit + "&access_token=" + page_token
+        let response = await this.httpService.get(url).toPromise()
+            .catch((error) => {
+                throw new HttpException(
+                    error.response.data.error.message,
+                    HttpStatus.BAD_REQUEST
+                )
+            })
+        return response.data.data
+    }
+
+    async sendComment(comment_id: string, page_token: string, message: string): Promise<any> {
+        let url = "https://graph.facebook.com/v4.0/" + comment_id + "/comments?access_token=" + page_token
+        let response = await this.httpService.post(url, {
+            message: message
+        }).toPromise()
+            .catch((error) => {
+                throw new HttpException(
+                    error.response.data.error.message,
+                    HttpStatus.BAD_REQUEST
+                )
+            })
+        return response.data
+    }
+
+    async registerCenter() {
+
     }
 }

@@ -37,4 +37,16 @@ export class PagesController {
         let response = await this.pagesService.getMessage(createPagesDto.page_id, createPagesDto.page_token, createPagesDto.limit)
         res.status(HttpStatus.OK).json({statusCode: HttpStatus.OK, message: 'Success', body: response})
     }
+
+    @Get('comment')
+    async getComment(@Body() createPagesDto: CreatePagesDto, @Res() res: Response): Promise<any> {
+        let response = await this.pagesService.getComment(createPagesDto.post_id, createPagesDto.page_token, createPagesDto.limit)
+        res.status(HttpStatus.OK).json({statusCode: HttpStatus.OK, message: 'Success', body: response})
+    }
+
+    @Post('comment')
+    async sendComment(@Body() createPagesDto: CreatePagesDto, @Res() res: Response): Promise<any> {
+        let response = await this.pagesService.sendComment(createPagesDto.comment_id, createPagesDto.page_token, createPagesDto.message)
+        res.status(HttpStatus.OK).json({statusCode: HttpStatus.OK, message: 'Success', body: response})
+    }
 }
